@@ -8,11 +8,11 @@ import java.util.List;
 public interface ProductService {
     Product createProduct(ProductDto productDto);
 
-    Product getProductById(Long id);
-
     void deleteProduct(Long id);
 
     List<Product> findAllProducts();
 
     List<Product> getRecentViewedProducts(int limit);
+
+    Product getProduct(Long id, String currency);
 }

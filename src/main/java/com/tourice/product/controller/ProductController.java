@@ -22,8 +22,9 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> addNewProduct(@RequestBody ProductDto productDto) {
-        return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.OK);
+    public ResponseEntity<String> addNewProduct(@RequestBody ProductDto productDto) {
+        productService.createProduct(productDto);
+        return new ResponseEntity<>("Product Created successfully", HttpStatus.OK);
     }
 
     @GetMapping
@@ -32,16 +33,22 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-        return new ResponseEntity<>(productService.getProductById(id), HttpStatus.OK);
+    public ResponseEntity<Product> getProduct(@PathVariable Long id, @RequestParam(required = false, defaultValue = "USD") String currency) {
+        Product product = productService.getProduct(id, currency);
+        if (product != null)
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        else
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
+        return new ResponseEntity<>("Product deleted successfully", HttpStatus.OK);
     }
 
-    public ResponseEntity<List<Product>> getRecentViewedProducts(int limit) {
+    @GetMapping("/most-viewed")
+    public ResponseEntity<List<Product>> getMostViewedProducts(int limit) {
         // Use JPA queries or stored procedures to retrieve recent views
         return new ResponseEntity<List<Product>>(productService.getRecentViewedProducts(limit), HttpStatus.OK);
     }

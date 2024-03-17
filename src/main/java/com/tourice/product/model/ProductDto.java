@@ -10,4 +10,5 @@ public class ProductDto {
     private double price;
     private String description;
     private String currency;
+    private int viewCount;
 }

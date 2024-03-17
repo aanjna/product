@@ -26,5 +26,5 @@ public class Product {
     private String description;
 
     private Currency currency;
-
+    private int viewCount;
 }
