@@ -21,3 +21,24 @@ When a single product is requested, all fields of that product are returned and 
    Your solution should include a working API and, some automated tests that verify the behavior of the API. Feel free to use available libraries (such as NPM modules if using NodeJS) to avoid writing everything from scratch.
 6. 
    Please include all of your source files (excluding 3rd party libraries such as node_modules) in your submission. Please include the schema for your database in the submission as well.
+
+
+
+Solution Postman curl
+Curl for the Post API -
+
+curl --location 'http://localhost:8080/api/v1/products' \
+--header 'Content-Type: application/json' \
+--data '{
+"name": "HeadPhone",
+"price": 50.99,
+"description": "This is a sony company product.",
+"currency" :"USD"
+}'
+
+Get API -
+curl --location 'http://localhost:8080/api/v1/products/{id}'
+
+with currency as param -
+curl --location 'http://localhost:8080/api/v1/products/1?currency=USD'
+It will increase view count as well 
