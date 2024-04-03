@@ -53,10 +53,10 @@ public class ProductServiceImpl implements ProductService {
         switch (groupBy) {
             case BRAND:
                 return productRepository.findByBrandId(Integer.valueOf(actualvalue));
-            case COLOR:
+            case CATEGORY:
                 return productRepository.findByCategoryId(Integer.valueOf(actualvalue));
-            case SIZE:
-                return productRepository.findBySize(actualvalue);
+            case NAME:
+                return productRepository.findByName(actualvalue);
             default:
                 return null;
         }

@@ -17,11 +17,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("UPDATE Product p SET p.viewCount = p.viewCount + 1 WHERE p.id = :id")
     void incrementViewCount(@Param("id") Long id);
 
-    @Query("SELECT p FROM Product p JOIN FETCH p.category JOIN FETCH p.brand WHERE p.category = :categoryId")
-    List<Product> findByCategoryId(@Param(value = "colorId") Integer categoryId);
+    @Query("SELECT p FROM Product p JOIN FETCH p.category JOIN FETCH p.brand WHERE p.category.id = :categoryId")
+    List<Product> findByCategoryId(@Param(value = "categoryId") Integer categoryId);
 
-    @Query("SELECT p FROM Product p JOIN FETCH p.category JOIN FETCH p.brand WHERE p.brand = :brandId")
+    @Query("SELECT p FROM Product p JOIN FETCH p.category JOIN FETCH p.brand WHERE p.brand.id = :brandId")
     List<Product> findByBrandId(@Param(value = "brandId") Integer brandId);
 
-    List<Product> findBySize(String actualvalue);
+    List<Product> findByName(String actualvalue);
 }

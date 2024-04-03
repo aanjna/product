@@ -1,7 +1,7 @@
 package com.tourice.product.model;
 
 public enum GroupBy {
-    BRAND("brand"), COLOR("color"), SIZE("size");
+    BRAND("brand"), CATEGORY("category"), NAME("name");
     String value;
 
     GroupBy(String name) {
