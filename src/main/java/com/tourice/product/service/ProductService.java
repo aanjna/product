@@ -15,4 +15,6 @@ public interface ProductService {
     List<Product> getRecentViewedProducts(int limit);
 
     Product getProduct(Long id, String currency);
+
+    List<Product> getProductsFilterByValue(String filter, String value);
 }

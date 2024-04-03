@@ -1,9 +1,6 @@
 package com.tourice.product.service;
 
-import com.tourice.product.model.Currency;
-import com.tourice.product.model.CurrencyResponse;
-import com.tourice.product.model.Product;
-import com.tourice.product.model.ProductDto;
+import com.tourice.product.model.*;
 import com.tourice.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,12 +47,28 @@ public class ProductServiceImpl implements ProductService {
         return product;
     }
 
+    @Override
+    public List<Product> getProductsFilterByValue(String groupByValue, String actualvalue) {
+        GroupBy groupBy = GroupBy.valueOf(groupByValue.toUpperCase());
+        switch (groupBy) {
+            case BRAND:
+                return productRepository.findByBrandId(Integer.valueOf(actualvalue));
+            case COLOR:
+                return productRepository.findByCategoryId(Integer.valueOf(actualvalue));
+            case SIZE:
+                return productRepository.findBySize(actualvalue);
+            default:
+                return null;
+        }
+    }
+
     private void addProductView(Long id) {
         productRepository.incrementViewCount(id);
     }
 
     public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+        //cans et status active as false here for soft delete
+//        productRepository.deleteById(id);
     }
 
     @Override

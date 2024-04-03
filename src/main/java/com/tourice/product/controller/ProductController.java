@@ -41,6 +41,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    //Product require Soft delete
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
@@ -50,6 +51,17 @@ public class ProductController {
     @GetMapping("/most-viewed")
     public ResponseEntity<List<Product>> getMostViewedProducts(int limit) {
         // Use JPA queries or stored procedures to retrieve recent views
-        return new ResponseEntity<List<Product>>(productService.getRecentViewedProducts(limit), HttpStatus.OK);
+        return new ResponseEntity<>(productService.getRecentViewedProducts(limit), HttpStatus.OK);
     }
+
+    @GetMapping("/filter/{filter}/{value}")
+    public ResponseEntity<List<Product>> getProducts(@PathVariable String filter,
+                                                     @PathVariable String value) {
+        List<Product> products = productService.getProductsFilterByValue(filter, value);
+        if(products==null || products.isEmpty())
+            throw new RuntimeException("Product not found!");
+
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
 }

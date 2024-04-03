@@ -27,4 +27,13 @@ public class Product {
 
     private Currency currency;
     private int viewCount;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(insertable = false, updatable = false, name = "BRND_ID")
+    private Brand brand;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(insertable = false, updatable = false, name = "PRDCT_CTGR_ID")
+    private ProductCategory category;
+
 }
