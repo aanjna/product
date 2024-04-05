@@ -30,10 +30,13 @@ Curl for the Post API -
 curl --location 'http://localhost:8080/api/v1/products' \
 --header 'Content-Type: application/json' \
 --data '{
-"name": "HeadPhone",
-"price": 50.99,
-"description": "This is a sony company product.",
-"currency" :"USD"
+"name": "Wireless Head Phone",
+"price": 49.99,
+"description": "This is an sony product.",
+"currency" :"USD",
+"brand": "Sony",
+"category": "HeadPhone",
+"isActive":"TRUE"
 }'
 
 Get API -

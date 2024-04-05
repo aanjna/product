@@ -2,8 +2,10 @@ package com.tourice.product.controller;
 
 import com.tourice.product.model.Product;
 import com.tourice.product.model.ProductDto;
+import com.tourice.product.model.ProductResponse;
 import com.tourice.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,8 +30,12 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> findAllProducts() {
-        return new ResponseEntity<>(productService.findAllProducts(), HttpStatus.OK);
+    public ResponseEntity<ProductResponse> findAllProducts(
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = "10", required = false) int pageSize
+    ) {
+        ProductResponse response = productService.findAllProducts(pageNo, pageSize);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -61,6 +67,14 @@ public class ProductController {
         if(products==null || products.isEmpty())
             throw new RuntimeException("Product not found!");
 
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<Page<Product>> search(@RequestParam(value = "pageNumber", required = false, defaultValue = "1") int pageNumber,
+                                                @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+                                                @RequestParam(value = "searchKey") String searchKey){
+        Page<Product> products = productService.search(pageNumber, size, searchKey);
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 

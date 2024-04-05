@@ -16,6 +16,7 @@ public class ProductCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String categoryName;
+    private boolean isActive;
 
     @JsonIgnoreProperties("category")
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY)

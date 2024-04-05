@@ -2,6 +2,8 @@ package com.tourice.product.repository;
 
 import com.tourice.product.model.Product;
 import jakarta.transaction.Transactional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +26,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByBrandId(@Param(value = "brandId") Integer brandId);
 
     List<Product> findByName(String actualvalue);
+
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %?1%" + " OR p.name LIKE %?1%" + " OR p.description LIKE %?1%")
+    public Page<Product> search(String searchKey, Pageable pageable);
 }

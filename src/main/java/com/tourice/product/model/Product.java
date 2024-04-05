@@ -22,7 +22,7 @@ public class Product {
 
     @Column(nullable = false)
     private double price;
-
+    private boolean isActive = Boolean.TRUE;
     private String description;
 
     private Currency currency;
